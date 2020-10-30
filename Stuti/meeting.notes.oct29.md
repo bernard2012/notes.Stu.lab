@@ -6,6 +6,6 @@
 6. What follow ups could we do on *215, *125, *426 CpGs?
 7. Why are DNA methylation time points mismatching time points for RNAseq?
 8. Is DNA methylation really secondary? I.e. one can activate expression without demethylating the promoter first?
-9.  DNA methylation not changing across days for the other 6 CpGs - What is the underlying reason for not seeing this change? Could DNA methylation come later? Are there other experiments one can do to confirm this finding of not seeing change?
+9. DNA methylation not changing across days for the other 6 CpGs - What is the underlying reason for not seeing this change? Could DNA methylation come later? Are there other experiments one can do to confirm this finding of not seeing change?
 10. If AZA can demethylates CpGs for globin, why not consider AZA as a treatment option for hemoglobin disorder?
 11. If we purposefully add AZA to demethylates CpGs in globin, do we see upregulation of globin expression? What if we do this in addition to BCL19A degradation? Does globin expression increase even more?
