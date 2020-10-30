@@ -1,0 +1,42 @@
+Full Sample Name,  Tube Label, Index Sequence, Group (replicates), Notes,cell type ,timepoint,cell number ,spike-in concentration,spike-in amount,C&R method ,library prep,size-selction
+K27Ac_WT1,TL-his,CAAAAG,Rep1,Index28,mESCs,0,0.5M,0.2ng/ml,0.02ng,Nan's original,NEBNext UltraII DNA Library Prep Kit for Illumina ,No
+K27Ac_WT2,TL-his,CAACTA,Rep2,Index29,mESCs,0,0.5M,0.2ng/ml,0.02ng,Nan's original,NEBNext UltraII DNA Library Prep Kit for Illumina ,No
+K27Ac_WT3,TL-his,CACCGG,Rep3,Index30,mESCs,0,0.5M,0.2ng/ml,0.02ng,Nan's original,NEBNext UltraII DNA Library Prep Kit for Illumina ,No
+K27Ac_14B1,TL-his,CACGAT,Rep1,Index31,mESCs,0,0.5M,0.2ng/ml,0.02ng,Nan's original,NEBNext UltraII DNA Library Prep Kit for Illumina ,No
+K27Ac_14B2,TL-his,CACTCA,Rep2,Index32,mESCs,0,0.5M,0.2ng/ml,0.02ng,Nan's original,NEBNext UltraII DNA Library Prep Kit for Illumina ,No
+K27Ac_14B3,TL-his,CAGGCG,Rep3,Index33,mESCs,0,0.5M,0.2ng/ml,0.02ng,Nan's original,NEBNext UltraII DNA Library Prep Kit for Illumina ,No
+K27Ac_WT41,TL-his,CATGGC,Rep1,Index34,mESCs,4,0.5M,0.2ng/ml,0.02ng,Nan's original,NEBNext UltraII DNA Library Prep Kit for Illumina ,No
+K27Ac_WT42,TL-his,CATTTT,Rep2,Index35,mESCs,4,0.5M,0.2ng/ml,0.02ng,Nan's original,NEBNext UltraII DNA Library Prep Kit for Illumina ,No
+K4me1_WT1,TL-his,ATCACG,Rep1,Index1,mESCs,0,0.5M,0.2ng/ml,0.02ng,Nan's original,NEBNext UltraII DNA Library Prep Kit for Illumina ,No
+K4me1_WT2,TL-his,CGATGT,Rep2,Index2,mESCs,0,0.5M,0.2ng/ml,0.02ng,Nan's original,NEBNext UltraII DNA Library Prep Kit for Illumina ,No
+K4me1_WT3,TL-his,TTAGGC,Rep3,Index3,mESCs,0,0.5M,0.2ng/ml,0.02ng,Nan's original,NEBNext UltraII DNA Library Prep Kit for Illumina ,No
+K4me1_14B1,TL-his,TGACCA,Rep1,Index4,mESCs,0,0.5M,0.2ng/ml,0.02ng,Nan's original,NEBNext UltraII DNA Library Prep Kit for Illumina ,No
+K4me1_14B2,TL-his,ACAGTG,Rep2,Index5,mESCs,0,0.5M,0.2ng/ml,0.02ng,Nan's original,NEBNext UltraII DNA Library Prep Kit for Illumina ,No
+K4me1_14B3,TL-his,GCCAAT,Rep3,Index6,mESCs,0,0.5M,0.2ng/ml,0.02ng,Nan's original,NEBNext UltraII DNA Library Prep Kit for Illumina ,No
+K4me1_WT41,TL-his,CAGATC,Rep1,Index7,mESCs,4,0.5M,0.2ng/ml,0.02ng,Nan's original,NEBNext UltraII DNA Library Prep Kit for Illumina ,No
+K4me1_WT42,TL-his,ACTTGA,Rep2,Index8,mESCs,4,0.5M,0.2ng/ml,0.02ng,Nan's original,NEBNext UltraII DNA Library Prep Kit for Illumina ,No
+K9me3_WT1,TL-his,CCAACA,Rep1,Index36,mESCs,0,0.5M,0.2ng/ml,0.02ng,Nan's original,NEBNext UltraII DNA Library Prep Kit for Illumina ,No
+K9me3_WT2,TL-his,CGGAAT,Rep2,Index37,mESCs,0,0.5M,0.2ng/ml,0.02ng,Nan's original,NEBNext UltraII DNA Library Prep Kit for Illumina ,No
+K9me3_WT3,TL-his,CTAGCT,Rep3,Index38,mESCs,0,0.5M,0.2ng/ml,0.02ng,Nan's original,NEBNext UltraII DNA Library Prep Kit for Illumina ,No
+K9me3_14B1,TL-his,CTATAC,Rep1,Index39,mESCs,0,0.5M,0.2ng/ml,0.02ng,Nan's original,NEBNext UltraII DNA Library Prep Kit for Illumina ,No
+K9me3_14B2,TL-his,GTGATC,Rep2,Index40,mESCs,0,0.5M,0.2ng/ml,0.02ng,Nan's original,NEBNext UltraII DNA Library Prep Kit for Illumina ,No
+K9me3_14B3,TL-his,GACGAC,Rep3,Index41,mESCs,0,0.5M,0.2ng/ml,0.02ng,Nan's original,NEBNext UltraII DNA Library Prep Kit for Illumina ,No
+K9me3_WT41,TL-his,TAATCG,Rep1,Index42,mESCs,4,0.5M,0.2ng/ml,0.02ng,Nan's original,NEBNext UltraII DNA Library Prep Kit for Illumina ,No
+K9me3_WT42,TL-his,TACAGC,Rep2,Index43,mESCs,4,0.5M,0.2ng/ml,0.02ng,Nan's original,NEBNext UltraII DNA Library Prep Kit for Illumina ,No
+IgG_ES_D0,TL-his,GTTTCG,,Index21,mESCs,0,0.5M,0.2ng/ml,0.02ng,Nan's original,NEBNext UltraII DNA Library Prep Kit for Illumina ,No
+IgG_ES_D4,TL-his,CGTACG,,Index22,mESCs,4,0.5M,0.2ng/ml,0.02ng,Nan's original,NEBNext UltraII DNA Library Prep Kit for Illumina ,No
+Matr3_WT1,TL-his,GAGTGG,Rep1,Index23,mESCs,0,0.5M,0.2ng/ml,0.02ng,Nan's original,NEBNext UltraII DNA Library Prep Kit for Illumina ,No
+Matr3_WT2,TL-his,GGTAGC,Rep2,Index24,mESCs,0,0.5M,0.2ng/ml,0.02ng,Nan's original,NEBNext UltraII DNA Library Prep Kit for Illumina ,No
+Matr3_KO1,TL-his,ACTGAT,Rep1,Index25,mESCs,0,0.5M,0.2ng/ml,0.02ng,Nan's original,NEBNext UltraII DNA Library Prep Kit for Illumina ,No
+Matr3_KO2,TL-his,ATGAGC,Rep2,Index26,mESCs,0,0.5M,0.2ng/ml,0.02ng,Nan's original,NEBNext UltraII DNA Library Prep Kit for Illumina ,No
+Ptbp1_WT1,TL-his,ATTCCT,,Index27,mESCs,0,0.5M,0.2ng/ml,0.02ng,Nan's original,NEBNext UltraII DNA Library Prep Kit for Illumina ,No
+,,,,,,,,,,,,
+Libarary preparation Kit: NEBNext UltraII DNA Library Prep Kit for Illumina,,,,,,,,,,,,
+PCR Enrichment: NEBNext Muliplex Oligos for Illumina ,,,,,,,,,,,,
+"Index sequence refer to the "" expected index primer sequence read"" in the NEBnext Primers for Illumina""",,,,,,,,,,,,
+,,,,,,,,,,,,
+GC-TL-8325,,,,,,,,,,,,
+,,,,,,,,,,,,
+"Please QC the sample, and do a pair-end sequencing 42bp + 6bp index",,,,,,,,,,,,
+,,,,,,,,,,,,
+My goal is to compare the binding profile of different histone markers in WT and KO clones in mouse embryonic stem cells. ,,,,,,,,,,,,
