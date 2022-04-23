@@ -335,6 +335,8 @@ Or by genes:
         print(g, by_gene[g], freq_gene[g])
 ```
 
+By default, get.tss.loops.py will aggregate only meta-zscores > 1.5 or meta-zscores < -1.5. Everything else is ignored.
+
 Run:
 ```
 python3 get.tss.loops.py pos > pos.genes.txt
