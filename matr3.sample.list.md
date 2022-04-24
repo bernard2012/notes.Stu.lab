@@ -2,6 +2,7 @@
 
 ## CUTRUN Dtag, MyoD and CTCF (CUTRUN.dTag.scarlett.jan25.22)
 
+<span style="color:red;font-weight:bold;">Path</span>
 ```
 CUTRUN.dTag.scarlett.jan25.22/220119_TL9688_NB551325_fastq
 ```
