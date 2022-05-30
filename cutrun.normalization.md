@@ -26,11 +26,11 @@ sbatch ./merge.bam.2.sh list1 merged.QZ_rad21.bam
 Peak calling on merged bam file
 
 ```
-ln -s CTCF/merged.bam merged_CTCF_aligned_reads.bam
-ln -s CTCF/merged.bam.bai merged_CTCF_aligned_reads.bam.bai
-cd /n/scratch3/users/q/qz64/scarlett_cutrun_dec29_21/211220_TL9605_NB551325_fastq/aligned.aug10/dup.marked
-#modify the script macs2.merged.sh
-sbatch ./macs2.merged.sh merged_CTCF_aligned_reads.bam
+#add the _aligned_reads.bam suffix to each file
+ln -s merged.QZ_rad21.bam merged_QZ_rad21_aligned_reads.bam
+ln -s merged.QZ_rad21.bam.bai merged_QZ_rad21_aligned_reads.bam.bai
+cp ~/cutrun_scripts/macs2.merged.sh .
+sbatch ./macs2.merged.sh merged_QZ_rad21_aligned_reads.bam
 ```
 
 ### Step 3:
@@ -38,8 +38,8 @@ sbatch ./macs2.merged.sh merged_CTCF_aligned_reads.bam
 Get the flank regions around merged peak file. Then subtract peak regions from flank regions.
 ```
 cp ~/chipseq-scripts/get_flank.py .
-python3 get_flank.py merged_CTCF_aligned_reads_narrow_peaks.narrowPeak > flank_merged_CTCF.narrowPeak
-bedops -d flank_merged_CTCF.narrowPeak merged_CTCF_aligned_reads_narrow_peaks.narrowPeak > flank_good_merged_CTCF.narrowPeak
+python3 get_flank.py merged_QZ_rad21_aligned_reads_narrow_peaks.narrowPeak > flank_merged_QZ_rad21.narrowPeak
+bedops -d flank_merged_QZ_rad21.narrowPeak merged_QZ_rad21_aligned_reads_narrow_peaks.narrowPeak > flank_good_merged_QZ_rad21.narrowPeak
 ```
 
 
@@ -48,11 +48,11 @@ bedops -d flank_merged_CTCF.narrowPeak merged_CTCF_aligned_reads_narrow_peaks.na
 Use the file as input to do_bamliquidator.sh
 ```
 cd ..
-cp ~/norm_cutrun_scripts/do_bamliquidiator_ctcf.sh .
-vim do_bamliquidator_ctcf.sh #edit the script file
-#pay attention to the merged_flank_peak file
-#then add the bam list in there
-sbatch ./do_bamliquidator_ctcf.sh
+pwd
+#should be now in XXX/aligned.aug10 directory
+cp ~/norm_cutrun_scripts/do_bamliquidator_list1.sh do_bamliquidator_list1.sh
+#vim do_bamliquidator_list1.sh #view the script file to make sure everything looks right (optional)
+sbatch ./do_bamliquidator_list1.sh flank_good_merged_QZ_rad21.narrowPeak dup.marked/list1
 ```
 
 This script will create the summary_flank folder, and put the resulting feature count table in that folder.
