@@ -1,15 +1,25 @@
 ## Normalization 
 
 ### Step 1:
-Merge bams 
+Go to the bam directory. Create a list of bam files to be merged:
 
 ```
-cd /n/scratch3/users/q/qz64/scarlett_cutrun_dec29_21/211220_TL9605_NB551325_fastq/aligned.aug10/dup.marked
-cp ~/merge.bam.sh .
-#put the bam files to be merged in a directory, like CTCF
-cd CTCF
-sbatch ./merge.bam.sh
-cd ..
+cd /n/scratch3/users/q/qz64/c2c12_dtag_k27me3_rad21_yy1_smad3/220524_TL10096_NS500233_fastq/aligned.aug10/dup.marked
+#note the dup.marked at the end of the path
+```
+
+```
+#vim list1
+#i for insert
+QZ_rad21dtag_aligned_reads.bam
+QZ_rad21dmso_aligned_reads.bam
+#save and exit
+```
+
+Start merging:
+```
+cp ~/merge.bam.2.sh .
+sbatch ./merge.bam.2.sh list1 merged.QZ_rad21.bam
 ```
 
 ### Step 2:
