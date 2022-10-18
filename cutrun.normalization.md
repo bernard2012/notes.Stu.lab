@@ -52,7 +52,7 @@ pwd
 #should be now in XXX/aligned.aug10 directory
 cp ~/norm_cutrun_scripts/do_bamliquidator_list1.sh do_bamliquidator_list1.sh
 #vim do_bamliquidator_list1.sh #view the script file to make sure everything looks right (optional)
-sbatch ./do_bamliquidator_list1.sh flank_good_merged_QZ_rad21.narrowPeak dup.marked/list1
+sbatch ./do_bamliquidator_list1.sh dup.marked/flank_good_merged_QZ_rad21.narrowPeak dup.marked/list1
 ```
 
 This script will create the summary_flank folder, and put the resulting feature count table in that folder.
@@ -76,6 +76,8 @@ Add the sample list to list file.
 ```
 vim do_script.py #edit
 ls -1 *CTCF*.sum > list
+
+module load R/3.3.3
 python3 do_script.py list list
 #example output
  KO0_CTCF KO41_CTCF NS01_CTCF NS41_CTCF 
@@ -125,6 +127,30 @@ samtools view -s 0.99999 -b dup.marked/NS41_CTCF_aligned_reads.bam > subsample/N
 Once satisfied,
 ```
 python3 create_subsample.py scale > subsample.sh
+```
+
+The generated `subsample.sh` does not contain the submission script header above. Add them in to the beginning of `subsample.sh` using VIM text editor:
+```
+vim subsample.sh
+```
+```
+#!/bin/bash
+#SBATCH -n 1                               # Request one core
+#SBATCH -N 1                               # Request one node (if you request more than one core with -n, also using
+                                           # -N 1 means all cores will be on the same node)
+#SBATCH -t 0-5:00                         # Runtime in D-HH:MM format
+#SBATCH -p short                           # Partition to run in
+#SBATCH --mem=8000                        # Memory total in MB (for all cores)
+#SBATCH -o hostname_%j.out                 # File to which STDOUT will be written, including job ID
+#SBATCH -e hostname_%j.err                 # File to which STDERR will be written, including job ID
+#SBATCH --mail-type=ALL                    # Type of email notification- BEGIN,END,FAIL,ALL
+#SBATCH --mail-user=bernardzhu@gmail.com   # Email to which notifications will be sent
+module load samtools
+```
+Save and exit VIM.
+
+
+```
 chmod a+x subsample.sh
 cp subsample.sh ../.
 cd ..
