@@ -70,7 +70,7 @@ cp ~/norm_cutrun_scripts/summary_flank/create_subsample.py .
 cp ~/norm_cutrun_scripts/summary_flank/do_script.py .
 ```
 
-Add the samples and phenotype annotations to the do_script.py. For example, modify do_script.py in the following function. For `pheno["XXX"]` fill in the sample name (which can be gotten using `ls -1 *.sum` command). For `["dmso", "h3k27ac"]`, you can fill in the phenotype annotations, for example for DMSO1_H3K27Ac, it will be "dmso" for first column, and "h3k27ac" for the second column. The 1 in DMSO1 refers to the replicate ID.
+Add the samples and phenotype annotations to the do_script.py. For example, modify do_script.py in the following function. 
 
 ```
 def read_phenotype():
@@ -81,6 +81,7 @@ def read_phenotype():
     pheno["dTag2_H3K27Ac"] = ["dtag", "h3k27ac"]
     return pheno
 ```
+In the above, for `pheno["XXX"]`, fill in the sample name (which can be gotten using `ls -1 *.sum` command). For `["dmso", "h3k27ac"]`, you can fill in the phenotype annotations, for example for `pheno["DMSO1_H3K27Ac"]`, it will be "dmso" for first column, and "h3k27ac" for the second column. The `1` in `DMSO1` refers to the replicate ID.
 
 Add the sample list to list file.
 ```
