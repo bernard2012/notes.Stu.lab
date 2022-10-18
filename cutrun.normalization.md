@@ -130,7 +130,7 @@ cp subsample.sh ../.
 cd ..
 ```
 
-## Step 7:
+### Step 7:
 
 Use the scaling factors to subsample bam files.
 
@@ -140,7 +140,7 @@ mkdir subsample
 sbatch ./subsample.sh
 ```
 
-## Step 8:
+### Step 8:
 
 ```
 cd subsample
@@ -212,7 +212,7 @@ cp ~/norm_cutrun_scripts/subsample/macs2.merged.sh .
 sbatch ./macs2.merged.sh merged_CTCF.bam
 ```
 
-#### Step 9
+### Step 9
 
 ```
 cd ../dup.marked.120bp
@@ -270,7 +270,7 @@ ls -ltr
 -rw-rw-r-- 1 qz64 qz64 1167795 Sep  1 14:23 dTag8h_CTCF16.sum
 ```
 
-#### Step 10: DESeq2 finding differential peaks
+### Step 10: DESeq2 finding differential peaks
 
 ```
 cd summary.narrow.120bp
