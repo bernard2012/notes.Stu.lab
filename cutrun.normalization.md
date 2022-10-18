@@ -146,14 +146,172 @@ sbatch ./subsample.sh
 cd subsample
 cp ~/norm_cutrun_scripts/subsample/integrated.step2.sh .
 cp ~/norm_cutrun_scripts/subsample/integrated.step2.large.sh .
+cp ~/cutrun_pipeline/filter*.awk .
 ```
 
-Open integrated.step2.sh, change the organism lines:
-```
-#mm10
-chromsizedir=`dirname /home/qz64/chrom.mm10.unmasked/mm10.fa`
-$macs2bin/macs2 callpeak -t $dir/"$base_file".bam -g mm
 
-#hg19
+### Choice 1: histone CUT&RUN
+
+Create a sample list of bam's to merge:
+```
+vim list.histone
+```
+```
+DMSO8h_CTCF11.bam
+DMSO8h_CTCF12.bam
+DMSO8h_CTCF13.bam
+dTag8h_CTCF14.bam
+dTag8h_CTCF15.bam
+dTag8h_CTCF16.bam
+```
+Type `:wq` to save and exit. 
+
+
+
+### Choice 2: TF CUT&RUN (where we need to divide into 120bp and 300bp groups)
+
+Create a sample list of bam's to process:
+```
+vim list.CTCF
+```
+```
+DMSO8h_CTCF11.bam
+DMSO8h_CTCF12.bam
+DMSO8h_CTCF13.bam
+dTag8h_CTCF14.bam
+dTag8h_CTCF15.bam
+dTag8h_CTCF16.bam
+```
+Type `:wq` to save and exit. 
+
 
 ```
+for i in `cat list.CTCF`; do sbatch ./integrated.step2.sh $i; done
+```
+The above script after finished should create a set of directories dup.marked.120bp, dup.marked.300bp, dup.marked.gt.300bp corresponding to BAM files subset by the fragment length (120bp and 300bp).
+
+```
+for i in `cat list.CTCF`; do sbatch ./integrated.step2.large.sh $i; done
+```
+Do this again for large fragments, i.e. 300bp and gt.300bp.
+
+The following step will do the merging of CTCF BAM's.
+```
+cd dup.marked.120bp #should be in dup.marked/dup.marked.120bp
+cp ../list.CTCF .
+sbatch ~/merge.bam.2.sh list.CTCF merged_CTCF.bam
+cp ~/norm_cutrun_scripts/subsample/macs2.merged.sh .
+sbatch ./macs2.merged.sh merged_CTCF.bam
+```
+
+```
+cd ../dup.marked.300bp
+cp ../list.CTCF .
+sbatch ~/merge.bam.2.sh list.CTCF merged_CTCF.bam
+cp ~/norm_cutrun_scripts/subsample/macs2.merged.sh .
+sbatch ./macs2.merged.sh merged_CTCF.bam
+```
+
+#### Step 9
+
+```
+cd ../dup.marked.120bp
+cp ~/norm_cutrun_scripts/subsample/do_bamliquidator.sh .
+cp ~/norm_cutrun_scripts/subsample/do_bamliquidator_broad.sh .
+```
+
+Check the content of do_bamliquidator.sh:
+```
+#!/bin/bash
+#SBATCH -n 1                               # Request one core
+#SBATCH -N 1                               # Request one node (if you request more than one core with -n, also using
+                                           # -N 1 means all cores will be on the same node)
+#SBATCH -t 0-5:00                         # Runtime in D-HH:MM format
+#SBATCH -p short                           # Partition to run in
+#SBATCH --mem=8000                        # Memory total in MB (for all cores)
+#SBATCH -o hostname_%j.out                 # File to which STDOUT will be written, including job ID
+#SBATCH -e hostname_%j.err                 # File to which STDERR will be written, including job ID
+#SBATCH --mail-type=ALL                    # Type of email notification- BEGIN,END,FAIL,ALL
+#SBATCH --mail-user=bernardzhu@gmail.com   # Email to which notifications will be sent
+
+
+type=$1 #120bp
+mkdir summary.narrow.$type
+type2=$2
+
+#=====================================================
+file2=dup.marked."$type"/merged_"$type2"_narrow_peaks.narrowPeak #bed file
+
+for i in `cat list.$type2|tr "\n" " "|sed "s/ $//g"|sed "s/.bam//g"`; do
+echo $i;
+file1=dup.marked."$type"/"$i".bam
+outfile=`basename $file1 .bam`.sum
+~/bamliquidator/bamliquidator_batch $file1 $file2 . 1 0 > summary.narrow."$type"/$outfile
+done
+```
+
+Run do_bamliquidator.sh:
+
+```
+sbatch ./do_bamliquidator.sh 120bp CTCF
+sbatch ./do_bamliquidator.sh 300bp CTCF
+```
+
+The above scripts mean that run bamliquidator for 120bp CTCF and run once for the large fragments. Bamliquidator is a program that takes a BAM file and a BED file and count reads of each BED interval in each BAM file. The output files should be in summary.narrow.120bp and summary.narrow.300bp. 
+
+```
+cd summary.narrow.120bp
+ls -ltr
+-rw-rw-r-- 1 qz64 qz64 1166918 Sep  1 14:21 DMSO8h_CTCF11.sum
+-rw-rw-r-- 1 qz64 qz64 1165796 Sep  1 14:21 DMSO8h_CTCF12.sum
+-rw-rw-r-- 1 qz64 qz64 1164396 Sep  1 14:22 DMSO8h_CTCF13.sum
+-rw-rw-r-- 1 qz64 qz64 1168293 Sep  1 14:22 dTag8h_CTCF14.sum
+-rw-rw-r-- 1 qz64 qz64 1167441 Sep  1 14:22 dTag8h_CTCF15.sum
+-rw-rw-r-- 1 qz64 qz64 1167795 Sep  1 14:23 dTag8h_CTCF16.sum
+```
+
+#### Step 10: DESeq2 finding differential peaks
+
+```
+cd summary.narrow.120bp
+cp ~/norm_cutrun_scripts/subsample/summary.narrow.120bp/*.sh .
+cp ~/norm_cutrun_scripts/subsample/summary.narrow.120bp/*.py .
+cp ~/norm_cutrun_scripts/subsample/summary.narrow.120bp/*.R .
+```
+
+```
+ls -1 *.sum > list.CTCF
+```
+
+Modify do_script.py to update the genotype and time column information:
+```
+#For example:
+def read_phenotype():
+    pheno["DMSO8h_CTCF11"] = ["dmso", "8h"]
+    pheno["DMSO8h_CTCF12"] = ["dmso", "8h"]
+    pheno["DMSO8h_CTCF13"] = ["dmso", "8h"]
+    pheno["dTag8h_CTCF14"] = ["dtag", "8h"]
+    pheno["dTag8h_CTCF15"] = ["dtag", "8h"]
+    pheno["dTag8h_CTCF16"] = ["dtag", "8h"]
+```
+
+Modify deseq.R:
+```
+dres<-results(dds, contrast=list("group4hdmso", "group4hdtag"))
+dres.sign<-dres[which(dres$pvalue<0.05),]
+dres.sign<-dres.sign[order(dres.sign$pvalue, decreasing=F),]
+outfile<-paste("DESeq2.", prefix, ".4hdmso.4hdtag.txt", sep="")
+write.table(dres.sign, file=outfile, sep="\t", row.names=T, col.names=T, quot=F)
+
+```
+
+Remember to change the group4hdmso and group4hdtag to correspond to the correct genotype and time information (in this case: group8hdtag and group8hdmso). Also remember to modify outfile name to .8hdmso and 8hdtag.
+
+Save and exit deseq.R.
+
+Now:
+```
+python3 do_script.py list.CTCF CTCF
+```
+
+The result should be a DESeq2... file.
