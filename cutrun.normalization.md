@@ -133,6 +133,8 @@ The generated `subsample.sh` does not contain the submission script header above
 ```
 vim subsample.sh
 ```
+
+Insert the following:
 ```
 #!/bin/bash
 #SBATCH -n 1                               # Request one core
@@ -149,7 +151,7 @@ module load samtools
 ```
 Save and exit VIM.
 
-
+Copy `subsample.sh` out:
 ```
 chmod a+x subsample.sh
 cp subsample.sh ../.
