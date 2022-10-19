@@ -191,20 +191,75 @@ cp ~/cutrun_pipeline/filter*.awk .
 
 ### Choice 1: histone CUT&RUN
 
+
+```
+cd subsample
+```
+
 Create a sample list of bam's to merge:
 ```
-vim list.histone
+vim list.H3K4me3
 ```
 ```
-DMSO8h_CTCF11.bam
-DMSO8h_CTCF12.bam
-DMSO8h_CTCF13.bam
-dTag8h_CTCF14.bam
-dTag8h_CTCF15.bam
-dTag8h_CTCF16.bam
+DMSO1_H3K4me3.bam
+DMSO2_H3K4me3.bam
+dTag1_H3K4me3.bam
+dTag2_H3K4me3.bam
 ```
 Type `:wq` to save and exit. 
 
+The following step will do the merging of BAM's.
+```
+sbatch ~/merge.bam.2.sh list.H3K4me3 merged_H3K4me3.bam
+```
+
+Wait until the above is finished.
+
+#### Peak calling
+Next, do MACS2 peak calling:
+```
+cp ~/norm_cutrun_scripts/subsample/histone/integrated.histone.sh .
+sbatch ./integrated.histone.sh merged_H3K4me3.bam
+```
+
+Wait until the above is finished.
+
+Next do SEACR peak calling:
+```
+cp ~/norm_cutrun_scripts/subsample/histone/do_bamliquidator_seacr.sh .
+cp ~/norm_cutrun_scripts/subsample/histone/seacr.merged.sh .
+cp ~/norm_cutrun_scripts/subsample/histone/do.bw.sh .
+```
+
+```
+sbatch ./seacr.merged.sh merged_H3K4me3.bam
+```
+Wait until the above is finished.
+
+Next do bamliquidator. First copy the scripts over:
+```
+cp ~/norm_cutrun_scripts/subsample/histone/do_bamliquidator.sh .
+cp ~/norm_cutrun_scripts/subsample/histone/do_bamliquidator_broad.sh .
+```
+
+#### Bamliquidator
+Note from the peak calling step just above, you should have generated the following files:
+```
+merged_H3K4me3_narrow_peaks.narrowPeak
+merged_H3K4me3_broad_peaks.broadPeak
+merged_H3K4me3_seacr_treat.stringent.bed
+```
+Note the pattern in the file name: merged_XXX_narrow_peaks.narrowPeak. Extract XXX by hand: which in this case XXX is H3K4me3. Fill this value in the next do_bamliquidator.sh command below:
+
+```
+sbatch ./do_bamliquidator.sh H3K4me3
+sbatch ./do_bamliquidator_broad.sh H3K4me3
+sbatch ./do_bamliquidator_seacr.sh H3K4me3
+```
+
+Wait until it is finished.
+After this is done, you should see that the summary.narrow, summary.broad, and summary.seacr should be created and have files in them. 
+Proceed to step 10. 
 
 
 ### Choice 2: TF CUT&RUN (where we need to divide into 120bp and 300bp groups)
