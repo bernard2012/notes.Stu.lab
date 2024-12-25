@@ -25,7 +25,10 @@ Can be done in VIM via:
 ```
 :
 %s,.*\/\n,,g
+:
+%s,deleting .*$\n,,g
 ```
+Also remember the delete the first line (irrelevant), and the ending 3-4 lines (which are non-file lines). Use ":1" to advance to first line to delete it. Use Ctrl+F/B for page-up and page-down functions.
 
 ### Step 3:
 ```
